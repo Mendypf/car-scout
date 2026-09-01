@@ -1,21 +1,23 @@
 # Car Scout
 
-Ever drive out for a car that was already sold? The listing looked fresh. The
-car left the lot three days ago.
+When you're shopping for a car online, the one thing a listing can't tell you
+is whether the car is still there. Cars sell and stay posted for days, and
+fresh trade-ins sit on the lot long before anyone lists them. The dealership
+knows, you just have to call and ask, and nobody wants to spend an afternoon
+calling twenty dealerships.
 
-Car Scout fixes that with phone calls. Search for the car you want, pick the
-dealerships near you, and an AI calls each one and asks: do you have it on the
-lot right now, and what's the price?
+So that's what Car Scout does. You tell it what car you're looking for and it
+searches the sites near you, and when you're ready, an AI gets on the phone
+and calls the dealerships for you. It asks whether the car is on the lot right
+now and what they're asking for it, and you get the answers back in one list,
+with each conversation written out and the cost of the call next to it. A call
+runs about 11 cents a minute, so calling ten dealerships costs a dollar or two.
 
-You get a plain list back: has it, doesn't have it, didn't answer. Each call
-shows the full conversation and its exact cost, about 11 cents a minute.
-
-The search itself is free and covers the whole market. CARFAX and Craigslist
-come built in. Your own AI agent reads the rest (Autotrader, CarGurus,
-cars.com) and adds what it finds to the same list.
-
-Run it as a dashboard in your browser, or plug it into your agent (Claude
-Code, Cursor, anything that speaks MCP) and let the agent drive.
+The searching part is free. CARFAX and Craigslist are built in, and if you use
+an AI agent like Claude Code or Cursor, it can read the sites that block
+scrapers, Autotrader and CarGurus and the rest, and pour everything into the
+same list. There's a plain dashboard in your browser, and an MCP server if
+you'd rather let your agent run the whole thing.
 
 ## Quick start
 
