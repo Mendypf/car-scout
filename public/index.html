@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Car Scout</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📞</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="top-actions">
+  <button class="keys-btn" id="pricing-btn" title="What things cost">
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+    </svg>
+    Pricing
+  </button>
+  <button class="keys-btn" id="keys-btn" title="API keys">
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 21 2"/><path d="m17 6 3 3"/><path d="m14 9 3 3"/>
+    </svg>
+    Add keys
+  </button>
+</div>
+
+<main>
+
+  <section class="hero">
+    <h1>Which car are you after?</h1>
+    <p class="lede">Search everything listed near you, then have the dealerships called to find out what's really on the lot.</p>
+
+    <form id="search-form" autocomplete="off">
+      <div class="searchbar">
+        <div class="field"><label for="make">Make</label><input id="make" name="make" placeholder="Toyota" required></div>
+        <div class="field"><label for="model">Model</label><input id="model" name="model" placeholder="Camry" required></div>
+        <div class="field"><label for="zip">ZIP</label><input id="zip" name="zip" inputmode="numeric" pattern="\d{5}" placeholder="10001" required></div>
+        <div class="field"><label for="radius">Within</label>
+          <select id="radius" name="radius">
+            <option value="15">15 mi</option>
+            <option value="25">25 mi</option>
+            <option value="50" selected>50 mi</option>
+            <option value="100">100 mi</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filters">
+        <div class="field"><label for="stockType">Condition</label>
+          <select id="stockType" name="stockType">
+            <option value="both">New or used</option>
+            <option value="new">New</option>
+            <option value="used">Used</option>
+          </select>
+        </div>
+        <div class="field"><label for="yearMin">Year from</label><input id="yearMin" name="yearMin" type="number" min="1990" max="2027" placeholder="any"></div>
+        <div class="field"><label for="yearMax">Year to</label><input id="yearMax" name="yearMax" type="number" min="1990" max="2027" placeholder="any"></div>
+        <div class="field"><label for="priceMax">Max price</label><input id="priceMax" name="priceMax" type="number" min="0" step="any" placeholder="any"></div>
+        <div class="field"><label for="mileageMax">Max miles</label><input id="mileageMax" name="mileageMax" type="number" min="0" step="any" placeholder="any"></div>
+      </div>
+
+      <div class="cta">
+        <button type="submit" class="btn primary" id="search-btn">Search listings</button>
+      </div>
+      <p class="error" id="form-error" hidden></p>
+    </form>
+  </section>
+
+  <section class="panel" id="results-panel" hidden>
+    <div class="panel-head">
+      <h2 id="results-title">Listings</h2>
+      <span class="muted" id="results-cost"></span>
+    </div>
+
+    <div class="callbar" id="callbar">
+      <div>
+        <p class="callbar-title" id="callbar-title">Not sure any of these are still there?</p>
+        <p class="callbar-sub" id="callbar-sub">Have the dealerships near you called and asked what's actually on the lot, what they're asking, and the mileage.</p>
+        <p class="callbar-note">This only brings up the list of dealerships — nothing gets called until you press the final button and see the cost.</p>
+      </div>
+      <button class="btn primary" id="call-btn">See dealerships to call</button>
+    </div>
+
+    <div class="results" id="results"></div>
+  </section>
+
+  <section class="panel" id="dealers-panel" hidden>
+    <div class="panel-head">
+      <h2 id="dealers-title">Dealerships found</h2>
+      <span class="stillness">📴 nothing has been called</span>
+    </div>
+
+    <div class="preview">
+      <label class="ask">How the call opens — edit it however you like
+        <textarea id="opening" rows="3" spellcheck="true"></textarea>
+      </label>
+      <div class="preview-actions">
+        <button type="button" class="btn ghost small" id="listen-btn">▶ Listen to it here</button>
+        <button type="button" class="linkbtn" id="script-toggle">edit the rest of the script</button>
+        <button type="button" class="linkbtn" id="reset-script">reset to default</button>
+      </div>
+      <p class="muted" id="listen-note">Plays in this tab, in the real voice, with your edits. Talk back if you want — it answers like it would a dealer.</p>
+      <label class="ask script-wrap" id="script-wrap" hidden>What the caller does for the rest of the call
+        <textarea id="script" rows="14" spellcheck="false"></textarea>
+      </label>
+    </div>
+
+    <div class="dealers" id="dealer-list"></div>
+
+    <div class="dealer-tools">
+      <button type="button" class="btn ghost small" id="nearby-btn">Find more dealerships nearby — free</button>
+      <span class="muted" id="nearby-note">Every dealer on the map, not just the ones listing this car.</span>
+    </div>
+
+    <table class="costs" id="cost-table"></table>
+
+    <p class="fineprint">
+      Each call asks one thing: is the car physically on the lot, and what are they asking for it.
+      Voicemail and no-answers cost close to nothing. The exact charge for each call appears next to
+      that dealership the moment it ends.
+    </p>
+
+    <div class="panel-foot">
+      <button class="btn primary" id="start-calls">Call the selected dealerships</button>
+      <button class="linkbtn" id="cancel-arm" hidden>cancel</button>
+      <span class="muted" id="call-note"></span>
+    </div>
+    <p class="error" id="call-error" hidden></p>
+  </section>
+
+  <section class="panel" id="board-panel" hidden>
+    <div class="panel-head">
+      <h2>Calls</h2>
+      <span class="spend" id="board-spend"></span>
+    </div>
+    <div id="board"></div>
+  </section>
+
+</main>
+
+<dialog id="pricing-dialog" class="sheet wide">
+  <form method="dialog">
+    <header class="sheet-head">
+      <h2 tabindex="-1">What things cost</h2>
+      <p>Charged per use to your own accounts. Nothing is spent until you press a button, and the real amount replaces the estimate as soon as it's known.</p>
+    </header>
+    <div class="sheet-body" id="pricing-body"></div>
+    <footer class="sheet-foot">
+      <button value="close" class="btn ghost">Close</button>
+    </footer>
+  </form>
+</dialog>
+
+<dialog id="keys-dialog" class="sheet">
+  <form method="dialog">
+    <header class="sheet-head">
+      <h2 tabindex="-1">API keys</h2>
+      <p>Kept on this machine only. Searching is free — a key is only needed to make the phone calls.</p>
+    </header>
+
+    <div class="sheet-body">
+      <div class="keyrow">
+        <div class="keyrow-head"><label for="vapiKey">Vapi</label><span class="state" id="vapi-state"></span></div>
+        <input id="vapiKey" type="password" placeholder="paste key from dashboard.vapi.ai" autocomplete="off">
+        <select id="vapiPhoneNumberId" aria-label="Number to call from"></select>
+        <p class="hint">Makes the calls. Without it you can still search and read the script.</p>
+      </div>
+
+      <div class="keyrow">
+        <div class="keyrow-head"><label for="vapiPublicKey">Vapi public key</label><span class="state" id="vapipub-state"></span></div>
+        <input id="vapiPublicKey" type="text" placeholder="the Public Key on that same Vapi page" autocomplete="off">
+        <p class="hint">Lets you hear the call in this tab before spending anything on real ones.</p>
+      </div>
+
+      <div class="keyrow">
+        <div class="keyrow-head"><label for="scrapeCreatorsKey">ScrapeCreators</label><span class="state" id="sc-state"></span></div>
+        <input id="scrapeCreatorsKey" type="password" placeholder="paste key from app.scrapecreators.com" autocomplete="off">
+        <p class="hint">Optional. Adds Facebook Marketplace to every search. Free to start, no card.</p>
+      </div>
+    </div>
+
+    <footer class="sheet-foot">
+      <button type="button" class="btn primary" id="save-settings">Save keys</button>
+      <button value="close" class="btn ghost">Close</button>
+      <span class="msg" id="settings-msg"></span>
+    </footer>
+  </form>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>

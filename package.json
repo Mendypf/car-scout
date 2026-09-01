@@ -1,0 +1,27 @@
+{
+  "name": "car-scout",
+  "version": "0.1.0",
+  "description": "Find a car for sale near you, then have an AI call every dealership in range and report back who actually has it. Runs as a dashboard and as an MCP server for your own agent.",
+  "keywords": ["mcp", "mcp-server", "vapi", "voice-agent", "cars", "car-shopping", "ai-agent"],
+  "homepage": "https://github.com/Mendypf/car-scout#readme",
+  "repository": { "type": "git", "url": "https://github.com/Mendypf/car-scout.git" },
+  "bugs": { "url": "https://github.com/Mendypf/car-scout/issues" },
+  "author": "Mendypf",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "mcp": "node mcp-server.js",
+    "mock": "node test/mock-vapi.js",
+    "start:mock": "node test/start-mock.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "express": "^4.19.2",
+    "zod": "^4.5.4"
+  },
+  "license": "MIT"
+}
