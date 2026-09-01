@@ -10,6 +10,10 @@ dealership: is the car physically on the lot, what are you asking for it, what
 are the miles. You get a list back — **has it**, **doesn't have it**, **no
 answer** — with the full transcript and the exact cost of every call.
 
+And it searches the whole market, not one site. Free built-in feeds cover
+CARFAX and Craigslist; your own agent reads everything else, Autotrader and
+CarGurus and cars.com included, and feeds what it finds into the same list.
+
 It runs two ways: a dashboard in your browser, and an **MCP server** so your
 own agent (Claude Code, Cursor, anything that speaks MCP) can drive the whole
 thing and do the searching on the subscription you already pay for.
@@ -46,7 +50,7 @@ is written for the agent itself; point yours at it.
 
 | | |
 |---|---|
-| Searching CARFAX and Craigslist | free |
+| Searching (built-in feeds + everything your agent reads) | free |
 | Finding dealerships to call | free |
 | Hearing the call before you send it | free |
 | A phone call | about $0.11 a minute, most run 1–2 minutes |
@@ -70,14 +74,17 @@ gitignored. Treat that file like a password.
 
 ## Where listings come from
 
-- **CARFAX**, new and used, straight from the public API its own site uses.
-  Free, and every row carries the dealer's phone number.
-- **Craigslist**, free, for private sellers and small lots.
-- **Facebook Marketplace**, if you add a ScrapeCreators key.
-- **Your agent**, which reads the sites a server can't. Autotrader, CarGurus,
-  cars.com and the rest block automated fetches; your agent doesn't hit that
-  wall, so it searches and pushes results in with `import_listings`. They show
-  up tagged "your agent" alongside everything else.
+The whole market, split between the app and your agent:
+
+- **Your agent reads every site.** Autotrader, CarGurus, cars.com, CarMax,
+  dealer sites, local classifieds: those sites block server scrapers, but not
+  an agent browsing on the subscription you already pay for. It pushes what it
+  finds in with `import_listings` and the results show up in the dashboard
+  tagged "your agent", alongside everything else.
+- **Built-in free feeds run on every search**: CARFAX, new and used, straight
+  from the public API its own site uses, every row carrying the dealer's phone
+  number, and Craigslist for private sellers and small lots.
+- **Facebook Marketplace** joins in if you add a ScrapeCreators key.
 
 Dealerships to call come from those listings (free), from OpenStreetMap for
 every other dealer nearby (free), and from your agent.
