@@ -7,15 +7,15 @@ ask.
 
 Car Scout does the calling. You search, pick who to ask, and an AI phones each
 dealership: is the car physically on the lot, what are you asking for it, what
-are the miles. You get a list back — **has it**, **doesn't have it**, **no
-answer** — with the full transcript and the exact cost of every call.
+are the miles. You get a list back (has it, doesn't have it, no answer) with
+the full transcript and the exact cost of every call.
 
-And it searches the whole market, not one site. Free built-in feeds cover
-CARFAX and Craigslist; your own agent reads everything else, Autotrader and
-CarGurus and cars.com included, and feeds what it finds into the same list.
+And it searches the whole market, not one site. CARFAX and Craigslist come
+built in and free; your own agent reads everything else, Autotrader, CarGurus,
+cars.com and the rest, and drops what it finds into the same list.
 
-It runs two ways: a dashboard in your browser, and an **MCP server** so your
-own agent (Claude Code, Cursor, anything that speaks MCP) can drive the whole
+It runs two ways: a dashboard in your browser, and an MCP server so your own
+agent (Claude Code, Cursor, anything that speaks MCP) can drive the whole
 thing and do the searching on the subscription you already pay for.
 
 ## Quick start
@@ -42,7 +42,7 @@ claude mcp add car-scout -- node /full/path/to/car-scout/mcp-server.js
 command: node    args: ["/full/path/to/car-scout/mcp-server.js"]
 ```
 
-Keep `npm start` running alongside it — the agent and the dashboard share one
+Keep `npm start` running alongside it: the agent and the dashboard share one
 state, so everything the agent does appears on screen. [AGENTS.md](AGENTS.md)
 is written for the agent itself; point yours at it.
 
@@ -68,7 +68,7 @@ charge replaces the estimate the moment it ends.
 | **Vapi public key** | hearing the call in your browser | same page, labeled Public Key |
 | **ScrapeCreators** | adds Facebook Marketplace | [app.scrapecreators.com](https://app.scrapecreators.com) — free to start, no card |
 
-Paste them into **Add keys**, or use environment variables — see
+Paste them into **Add keys**, or use environment variables: see
 [`.env.example`](.env.example). Pasted keys live in `data/config.json`, which is
 gitignored. Treat that file like a password.
 
@@ -103,7 +103,7 @@ every other dealer nearby (free), and from your agent.
 **One thing you shouldn't remove.** The disclosure that the call is automated
 gets put back by the server if an edit drops it. Undisclosed AI calling is
 illegal in several US states, and these are business calls to dealerships that
-field inventory questions all day — the disclosure costs you nothing and keeps
+field inventory questions all day. The disclosure costs you nothing and keeps
 you clear.
 
 ## Trying it without calling anyone
@@ -151,4 +151,4 @@ test/mock-vapi.js  Fake Vapi for end-to-end testing
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).
