@@ -66,7 +66,7 @@ charge replaces the estimate the moment it ends.
 |---|---|---|
 | **Vapi** | the phone calls | [dashboard.vapi.ai](https://dashboard.vapi.ai) → API Keys, plus a phone number on the account |
 | **Vapi public key** | hearing the call in your browser | same page, labeled Public Key |
-| **ScrapeCreators** | adds Facebook Marketplace | [app.scrapecreators.com](https://app.scrapecreators.com) — free to start, no card |
+| **ScrapeCreators** | adds Facebook Marketplace | [app.scrapecreators.com](https://app.scrapecreators.com), free to start, no card |
 
 Paste them into **Add keys**, or use environment variables: see
 [`.env.example`](.env.example). Pasted keys live in `data/config.json`, which is
